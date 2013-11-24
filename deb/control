@@ -1,0 +1,14 @@
+Priority: optional
+Section: web
+Pre-Depends: debconf (>= 0.5) | debconf-2.0
+Suggests: freenetis
+Architecture: all
+Maintainer: Ondrej Fibich <ondrej.fibich@gmail.com>
+Homepage: http://www.freenetis.org
+Description: DHCP server synchronization from FreenetIS
+ The tool is used to synchronize the DHCP server configuration with data 
+  obtained from FreenetIS. DHCP server is identified in FreenetIS by 
+  the device ID.
+Description-cs.UTF-8: Synchronizace DHCP serveru z FreenetISu:
+ Nástroj se používá k synchronizaci konfigurace DHCP serveru daty získanými 
+  z FreenetISu. DHCP server je ve FreenetISu identifikován pomocí ID zařízení.

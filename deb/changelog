@@ -1,0 +1,12 @@
+freenetis-dhcp (0.1.2) stable; urgency=hight
+  * Adds dependency for killall
+  * Adds support for lenny
+ -- Ondrej Fibich <ondrej.fibich@gmail.com>  Mon, 04 Mar 2013 19:15:04 +0100
+
+freenetis-dhcp (0.1.1) stable; urgency=hight
+  * Fix release
+ -- Ondrej Fibich <ondrej.fibich@gmail.com>  Wed, 19 Jan 2013 19:21:49 +0100
+
+freenetis-dhcp (0.1.0) stable; urgency=low
+  * First release
+ -- Ondrej Fibich <ondrej.fibich@gmail.com>  Wed, 16 Jan 2013 19:29:49 +0100

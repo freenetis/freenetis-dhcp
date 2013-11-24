@@ -1,0 +1,28 @@
+Template: freenetis-dhcp/path_freenetis
+Type: string
+Default: http://localhost/freenetis
+Description: FreenetIS URL:
+ Base path to running FreenetIS instance (e.g. http://freenet.org/is)
+Description-cs.UTF-8: FreenetIS URL:
+ Cesta ke kořenu běžící instalace FreenetISu (např. http://freenet.org/is)
+
+Template: freenetis-dhcp/device_id
+Type: string
+Default: 
+Description: Device ID:
+ ID of device from FreenetIS.
+Description-cs.UTF-8: ID zařízení:
+ ID zařízení z FreenetISu.
+
+Template: freenetis-dhcp/timeout
+Type: string
+Default: 300
+Description: Timeout:
+ Timeout in seconds after that the synchronization is made (default 5 minutes).
+Description-cs.UTF-8: Timeout:
+ Timeout v sekundách, po kterém je provedena synchronizace (defaultně 5 minut).
+
+Template: freenetis-dhcp/hack_reload
+Type: boolean
+Default: true
+Description: Hack for propper working of loading package?

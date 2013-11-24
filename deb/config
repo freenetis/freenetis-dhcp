@@ -1,0 +1,26 @@
+#!/bin/sh
+
+set -e
+. /usr/share/debconf/confmodule
+
+CONFIGFILE=/etc/freenetis/freenetis-dhcp.conf
+
+# Load config file, if it exists.
+if [ -e $CONFIGFILE ]; then
+	db_get freenetis-dhcp/hack_reload
+	if [ "$RET" = true ]; then
+		. $CONFIGFILE || true
+		db_set freenetis-dhcp/path_freenetis "$PATH_FN"
+		db_set freenetis-dhcp/device_id "$DEVICE_ID"
+		db_set freenetis-dhcp/timeout "$TIMEOUT"
+	fi
+fi
+
+# h@ck for not reloading variables from config file (enabled again by postinst)
+db_set freenetis-dhcp/hack_reload false
+
+# Ask questions.
+db_input critical freenetis-dhcp/path_freenetis || true
+db_input critical freenetis-dhcp/device_id || true
+db_input critical freenetis-dhcp/timeout || true
+db_go || true
