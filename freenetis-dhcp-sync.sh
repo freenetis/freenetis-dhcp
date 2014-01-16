@@ -5,13 +5,25 @@
 #  Description: This script generates config file of ISC DHCP server           #
 #  from FreenetIS                                                              #
 #                                                                              #
-#  Version: 0.1.1                                                              #
+#  Version: 0.1.3                                                              #
 #                                                                              # 
 ################################################################################
 
+# Version	
+VERSION="0.1.3"
+
+# Variables
 CONFIG=/etc/freenetis/freenetis-dhcp.conf
 CUSTOM_DHCP_CONF=/etc/dhcp/dhcp.conf.custom
 FORCED=1
+
+# Vesion info? Only possible arg.
+if [ $# -eq 1 ]; then
+	if [ "$1" == "version"  ]; then
+		echo "$VERSION"
+		exit 0
+	fi
+fi
 
 # Load variables
 if [ -e $CONFIG ]; then 

@@ -1,13 +1,13 @@
-#######################################################################################################
-#                                                                                                     #
-#  Author: Michal Kliment                                                                             #
-#  Description: This script regenerate DHCP server from FreenetIS                                     #
-#                                                                                                     #
-#  Version: 0.1.1                                                                                     #
-#                                                                                                     # 
-#######################################################################################################
+################################################################################
+#                                                                              #
+#  Author: Michal Kliment                                                      #
+#  Description: This script regenerate DHCP server from FreenetIS              #
+#                                                                              #
+#  Version: 0.1.3                                                              #
+#                                                                              # 
+################################################################################
 
-########################################## CONFIG VALUES ##############################################
+############ CONFIG VALUES #####################################################
 
 # Base PATH_FN to running FreenetIS instance
 :global PATHFN "http://localhost/freenetis"
@@ -18,7 +18,7 @@
 # Forced download
 :global FORCED 0
 
-######################################## SCRIPT - DO NOT CHANGE! ######################################
+############ SCRIPT - DO NOT CHANGE! ###########################################
 
 # First run with forced download
 :if ([:len [/file find name="dhcp.rsc"]] = 0) do={

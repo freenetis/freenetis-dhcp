@@ -98,6 +98,13 @@ status_dhcp ()
 	fi
 }
 
+version_dhcp ()
+{
+	VERSION=`"$DHCP_SYNCFILE" version 2>/dev/null`
+	
+	echo $VERSION
+}
+
 usage_dhcp ()
 {
 	echo "usage : `echo $0` (start|stop|restart|status|help)"
@@ -109,6 +116,7 @@ help_dhcp ()
 	echo "  stop - stops synchronization of DHCP"
 	echo "  restart - restarts synchronization of DHCP"
 	echo "  status - returns current state of DHCP synchronization"
+	echo "  version - prints version"
 	echo "  help - prints help for DHCP synchronization"
 }
 
@@ -133,6 +141,11 @@ case "$1" in
 
 	stop)
 		stop_dhcp
+		exit 0
+	;;
+	
+	version)
+		version_dhcp
 		exit 0
 	;;
 
