@@ -72,16 +72,24 @@ do
 		# config has been change
 		if [ `diff "$TMPFILE" "$DHCP_CONF" | wc -l` -gt 0 ]; then
 			echo "[INFO] `date -R`   Downloaded (code: $status)"
-			echo "[INFO] `date -R`   Backuping old config to $DHCP_CONF.save"
-			mv -f "$DHCP_CONF" "$DHCP_CONF".save
-			echo "[INFO] `date -R`   Loading new config to $DHCP_CONF.save..."
-			# copy config
-			mv -f "$TMPFILE" "$DHCP_CONF"
-			#restart DHCP server
-			echo "[INFO] `date -R`   Restarting ISC DHCP server"
+			echo "[INFO] `date -R`   Testing new config..."
+			# new config is valid
+			if dhcpd -4 -t -cf "$TMPFILE" &>/dev/null;
+			then
+				echo "[INFO] `date -R`   New config is valid"
+				echo "[INFO] `date -R`   Backuping old config to $DHCP_CONF.save"
+				mv -f "$DHCP_CONF" "$DHCP_CONF".save
+				echo "[INFO] `date -R`   Loading new config to $DHCP_CONF.save..."
+				# copy config
+				mv -f "$TMPFILE" "$DHCP_CONF"
+				#restart DHCP server
+				echo "[INFO] `date -R`   Restarting ISC DHCP server"
 
-			killall -w dhcpd 2>/dev/null
-			dhcpd -4 -q -cf "$DHCP_CONF"
+				killall -w dhcpd 2>/dev/null
+				dhcpd -4 -q -cf "$DHCP_CONF"
+			else
+				echo "[ERROR] `date -R`   Invalid new config -> keeping old configuration"
+			fi
 		else
 			echo "[INFO] `date -R`   No change -> keeping old configuration"
 		fi
