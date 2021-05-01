@@ -58,11 +58,7 @@ do
 	TMPFILE=`mktemp`
 	echo "[INFO] `date -R`   Downloading ISC DHCP SERVER config from (${PATH_FN})"
 
-	if [ "$DEBIAN_VERSION" = lenny ]; then # lenny wget -q DO NOT WORK :-(
-		status=`wget --no-check-certificate --server-response "$DOWN_PATH" -O "$TMPFILE" 2>&1 | awk '/^  HTTP/{print $2}'`
-	else
-		status=`wget --no-check-certificate --server-response -q "$DOWN_PATH" -O "$TMPFILE" 2>&1 | awk '/^  HTTP/{print $2}'`
-	fi
+	status=`wget --no-check-certificate --server-response -q "$DOWN_PATH" -O "$TMPFILE" 2>&1 | awk '/^  HTTP/{print $2}'`
 
 	# make sure that config exist
 	touch "$DHCP_CONF"
@@ -84,11 +80,7 @@ do
 			#restart DHCP server
 			echo "[INFO] `date -R`   Restarting ISC DHCP server"
 
-			if [ "$DEBIAN_VERSION" = lenny ]; then # lenny do not have ISC
-				/etc/init.d/dhcp3-server restart 2>&1 >/dev/null
-			else # squeeze, wheezy, ...
-				service isc-dhcp-server restart 2>&1 >/dev/null
-			fi
+			service isc-dhcp-server restart 2>&1 >/dev/null
 		else
 			echo "[INFO] `date -R`   No change -> keeping old configuration"
 		fi
