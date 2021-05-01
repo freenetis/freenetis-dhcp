@@ -58,7 +58,7 @@ do
 	TMPFILE=`mktemp`
 	echo "[INFO] `date -R`   Downloading ISC DHCP SERVER config from (${PATH_FN})"
 
-	status=`wget --no-check-certificate --server-response -q "$DOWN_PATH" -O "$TMPFILE" 2>&1 | awk '/^  HTTP/{print $2}'`
+	status=`curl -s -o "$TMPFILE" -w "%{http_code}" "$DOWN_PATH"`
 
 	# make sure that config exist
 	touch "$DHCP_CONF"
