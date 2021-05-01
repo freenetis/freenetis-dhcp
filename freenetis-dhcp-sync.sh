@@ -44,6 +44,15 @@ if [[ ! "$TIMEOUT" =~ ^[0-9]+$ ]] || [ $TIMEOUT -lt 1 ]; then
 	exit 1
 fi
 
+# restart DHCP server and test PID
+restart_dhcp ()
+{
+	killall -w dhcpd 2>/dev/null
+	dhcpd -4 -q -cf "$DHCP_CONF"
+
+	pidof -q dhcpd
+}
+
 # endless loop
 while true;
 do
@@ -82,13 +91,26 @@ do
 				echo "[INFO] `date -R`   Loading new config to $DHCP_CONF.save..."
 				# copy config
 				mv -f "$TMPFILE" "$DHCP_CONF"
-				#restart DHCP server
+				# restart DHCP server with new configuration
 				echo "[INFO] `date -R`   Restarting ISC DHCP server"
-
-				killall -w dhcpd 2>/dev/null
-				dhcpd -4 -q -cf "$DHCP_CONF"
+				if ! restart_dhcp;
+				then
+					echo "[ERROR] `date -R`   DHCP server is not running -> keeping old configuration"
+					mv -f "$DHCP_CONF".save "$DHCP_CONF"
+					# restart DHCP server with old configuration
+					echo "[INFO] `date -R`   Restarting ISC DHCP server"
+					if restart_dhcp;
+					then
+						echo "[INFO] `date -R`   Restart completed"
+					else
+						echo "[ERROR] `date -R`   DHCP server is not running"
+					fi
+				else
+					echo "[INFO] `date -R`   Restart completed"
+				fi
 			else
 				echo "[ERROR] `date -R`   Invalid new config -> keeping old configuration"
+				mv -f "$DHCP_CONF".save "$DHCP_CONF"
 			fi
 		else
 			echo "[INFO] `date -R`   No change -> keeping old configuration"
