@@ -80,7 +80,8 @@ do
 			#restart DHCP server
 			echo "[INFO] `date -R`   Restarting ISC DHCP server"
 
-			service isc-dhcp-server restart 2>&1 >/dev/null
+			killall -w dhcpd 2>/dev/null
+			dhcpd -4 -q -cf "$DHCP_CONF"
 		else
 			echo "[INFO] `date -R`   No change -> keeping old configuration"
 		fi
