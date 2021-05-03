@@ -1,0 +1,13 @@
+[Unit]
+Description=FreenetIS DHCP synchronization
+After=network.target
+ConditionPathExists=/etc/freenetis/freenetis-dhcp.conf
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+ExecStart=/usr/sbin/freenetis-dhcp-sync
+
+[Install]
+WantedBy=multi-user.target
