@@ -1,6 +1,7 @@
 [Unit]
 Description=FreenetIS DHCP synchronization
 After=network.target
+Wants=isc-kea-dhcp4-server.service
 ConditionPathExists=/etc/freenetis/freenetis-dhcp.conf
 
 [Service]
