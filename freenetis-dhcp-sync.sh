@@ -93,7 +93,7 @@ restart_dhcp ()
 	then
 		if pidof -q kea-dhcp4;
 		then
-			killall -s SIGHUP kea-dhcp4 2>/dev/null
+			killall -w -s SIGHUP kea-dhcp4 2>/dev/null
 		else
 			systemctl start isc-kea-dhcp4-server.service
 		fi
